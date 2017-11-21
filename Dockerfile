@@ -1,18 +1,38 @@
-FROM bitnami/minideb
+FROM debian:stable-slim as builder
 
-MAINTAINER Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>
+ADD qemu-*-static /usr/bin/
+
+FROM builder
+
+LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>"
 
 ENV CHROME_DEBUG_PORT=9222
+ARG ISARM=0
 
-# Install deps + add Chrome Stable + purge all the things
-RUN apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg --no-install-recommends && \
-  curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add -  && \
-  echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list  && \
-  apt-get update && apt-get install -y google-chrome-stable --no-install-recommends && \
-  apt-get purge --auto-remove -y curl gnupg && \
-  rm -rf /var/lib/apt/lists/* && \
-  groupadd -r chrome && useradd -r -g chrome -G audio,video chrome && \
-  mkdir -p /home/chrome/reports && chown -R chrome:chrome /home/chrome
+RUN if [ ${ISARM:-0} = 1 ]; then echo "\
+    deb http://ports.ubuntu.com/ trusty main restricted universe multiverse \
+    deb http://ports.ubuntu.com/ trusty-updates main restricted universe multiverse \
+    deb http://ports.ubuntu.com/ trusty-security main restricted universe multiverse \
+    " >> /etc/apt/sources.list; else echo "\
+    deb http://archive.ubuntu.com/ubuntu/ bionic main restricted \
+    deb http://archive.ubuntu.com/ubuntu/ bionic-updates main restricted \
+    deb http://archive.ubuntu.com/ubuntu/ bionic universe \
+    deb-src http://archive.ubuntu.com/ubuntu/ bionic universe \
+    deb http://archive.ubuntu.com/ubuntu/ bionic-updates universe \
+    deb-src http://archive.ubuntu.com/ubuntu/ bionic-updates universe \
+    deb http://archive.ubuntu.com/ubuntu/ bionic multiverse \
+    deb http://archive.ubuntu.com/ubuntu/ bionic-updates multiverse \
+    deb http://archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse \
+    deb http://security.ubuntu.com/ubuntu/ bionic-security main restricted \
+    deb http://security.ubuntu.com/ubuntu/ bionic-security universe \
+    deb-src http://security.ubuntu.com/ubuntu/ bionic-security universe \
+    deb http://security.ubuntu.com/ubuntu/ bionic-security multiverse \
+    " >> /etc/apt/sources.list; fi && \
+    apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg chromium-browser --no-install-recommends --allow-unauthenticated && \
+    apt-get purge --auto-remove -y curl gnupg --allow-remove-essential && \
+    rm -rf /var/lib/apt/lists/* && \
+    groupadd -r chrome && useradd -r -g chrome -G audio,video chrome && \
+    mkdir -p /home/chrome/reports && chown -R chrome:chrome /home/chrome
 
 COPY entrypoint.sh /usr/bin/entrypoint
 

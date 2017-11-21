@@ -1,0 +1,18 @@
+image: femtopixel/google-chrome-headless:$FULLVERSION
+manifests:
+  -
+    image: femtopixel/google-chrome-headless:$VERSION-arm32v7
+    platform:
+      architecture: arm
+      variant: v7
+      os: linux
+  -
+    image: femtopixel/google-chrome-headless:$VERSION-i386
+    platform:
+      architecture: 386
+      os: linux
+  -
+    image: femtopixel/google-chrome-headless:$VERSION-amd64
+    platform:
+      architecture: amd64
+      os: linux
