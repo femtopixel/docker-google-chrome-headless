@@ -1,4 +1,5 @@
 VERSION ?= 0.2.0
+CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs = arm32v7 amd64 i386
 .PHONY: all build publish latest version
@@ -8,8 +9,8 @@ build:
 	$(foreach arch,$(archs), \
 		cat Dockerfile | sed "s/FROM debian:stable-slim/FROM $(arch)\/debian:stable-slim/g" > .build; \
 		if [ $(arch) = arm32v7 ]; then \
-		docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg ISARM=1 .;\
-		else docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg ISARM=0 .;\
+		docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg ISARM=1 ${CACHE} .;\
+		else docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg ISARM=0 ${CACHE} .;\
 		fi;\
 	)
 publish:
