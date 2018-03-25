@@ -16,7 +16,7 @@ build:
 publish:
 	docker push femtopixel/google-chrome-headless
 	cat manifest.yml | sed "s/\$$VERSION/${VERSION}/g" > manifest2.yaml
-	cat manifest2.yaml | sed "s/\$$FULLVERSION/${FULLVERSION}-debian/g" > manifest.yaml
+	cat manifest2.yaml | sed "s/\$$FULLVERSION/${FULLVERSION}/g" > manifest.yaml
 	manifest-tool push from-spec manifest.yaml
 latest: build
 	cat manifest.yml | sed "s/\$$VERSION/${VERSION}/g" > manifest2.yaml
