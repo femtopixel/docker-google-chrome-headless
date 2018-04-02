@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 Google Chrome Headless - Docker Image
 ================================
 
