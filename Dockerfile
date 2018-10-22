@@ -4,10 +4,11 @@ ADD qemu-*-static /usr/bin/
 
 FROM builder
 
+ARG VERSION=70
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>"
+LABEL version="${VERSION}"
 
 ENV CHROME_DEBUG_PORT=9222
-ARG ISARM=0
 
 RUN apt-get update && \
     apt-get install -y apt-transport-https ca-certificates curl gnupg chromium --no-install-recommends --allow-unauthenticated && \
