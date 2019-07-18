@@ -1,6 +1,7 @@
-VERSION ?= 75.0.3770.90
+VERSION ?= 77.0.3854.3
 CACHE ?= --no-cache=1
-FULLVERSION ?= 75.0.3770.90
+FULLVERSION ?= 77.0.3854.3
+REVISION ?= 678702
 archs = amd64 i386
 .PHONY: all build publish latest version
 all: build publish
@@ -8,7 +9,7 @@ build:
 	cp -R /usr/bin/qemu-*-static .
 	$(foreach arch,$(archs), \
 		cat Dockerfile | sed "s/FROM debian:sid-slim/FROM $(arch)\/debian:sid-slim/g" > .build; \
-		docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg VERSION=${VERSION}-$(arch) ${CACHE} .;\
+		docker build -t femtopixel/google-chrome-headless:${VERSION}-$(arch) -f .build --build-arg VERSION=${VERSION}-$(arch) --build-arg REVISION=${REVISION} ${CACHE} .;\
 	)
 publish:
 	docker push femtopixel/google-chrome-headless

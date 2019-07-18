@@ -17,7 +17,7 @@ Usage
 -----
 
 ```
-docker run --rm --name chrome -it -p 9222:9222 --cap-add SYS_ADMIN femtopixel/google-chrome-headless <optional_args> <optional_site_url> 
+docker run --rm --name chrome -it -p 9222:9222 femtopixel/google-chrome-headless <optional_args> <optional_site_url> 
 ```
 
 With `<optional_site_url>` url to your site (e.g. http://www.google.com). By default `about:blank`. You can pass args **BEFORE** the `url` if you want to use some.
@@ -28,14 +28,4 @@ By default, Chrome Headless listen on the `9222` port but this can be changed by
 
 ```
 docker run --rm --name chrome -it -p 9000:9000 -e CHROME_DEBUG_PORT=9000 femtopixel/google-chrome-headless <optional_args> <optional_site_url> 
-```
- 
-Usage : Improved
-----------------
-
-Using the ever-awesome [Jessie Frazelle](https://twitter.com/jessfraz) SECCOMP profile for Chrome, we don't have to use the hammer that is SYS_ADMIN:
-
-```
-wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O ~/chrome.json
-docker run --rm --name chrome -it -p 9222:9222 --security-opt seccomp=$HOME/chrome.json  femtopixel/google-chrome-headless <optional_args> <optional_site_url> 
-```
+``` 

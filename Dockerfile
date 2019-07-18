@@ -4,8 +4,8 @@ ADD qemu-*-static /usr/bin/
 
 FROM builder
 
-ARG VERSION=77.0.3814.0
-ARG REVISION=665593
+ARG VERSION=77.0.3854.3
+ARG REVISION=678702
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>"
 LABEL version="${VERSION}"
 
