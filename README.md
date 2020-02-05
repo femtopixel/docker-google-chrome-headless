@@ -11,6 +11,8 @@ Google Chrome Headless - Docker Image
 [![Buy me a coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png "Buy me a coffee")](https://www.buymeacoffee.com/3Yu8ajd7W)
 [![Become a Patron](https://badgen.net/badge/become/a%20patron/F96854 "Become a Patron")](https://patreon.com/femtopixel)
 
+THIS REPOSITORY IS AUTOUPDATED BY A BOT WHEN A NEW GOOGLE CHROME RELEASE IS UNLEASHED
+
 [Google Chrome Headless](https://developers.google.com/web/updates/2017/04/headless-chrome) is the Google Chromium browser that can be started without graphical interface to accomplish several tasks (PDF printing, performance, automation...)
 
 Usage
