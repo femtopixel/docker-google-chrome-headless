@@ -1,4 +1,4 @@
-FROM debian:sid-slim as builder
+FROM debian:stable-slim as builder
 
 ADD qemu-*-static /usr/bin/
 
