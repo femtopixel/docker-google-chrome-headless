@@ -1,13 +1,10 @@
-FROM debian:stable-slim as builder
+FROM debian:stable-slim
 
-ADD qemu-*-static /usr/bin/
-
-FROM builder
-
+ARG TARGETPLATFORM
 ARG VERSION=77.0.3854.3
 ARG REVISION=678702
 LABEL maintainer="Jay MOULIN <jaymoulin@gmail.com> <http://twitter.com/moulinjay>"
-LABEL version="${VERSION}"
+LABEL version="${VERSION}-${TARGETPLATFORM}"
 
 ENV CHROME_DEBUG_PORT=9222
 
