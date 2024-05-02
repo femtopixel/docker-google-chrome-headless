@@ -34,3 +34,19 @@ By default, Chrome Headless listen on the `9222` port but this can be changed by
 ```
 docker run --rm --name chrome -it -p 9000:9000 -e CHROME_DEBUG_PORT=9000 femtopixel/google-chrome-headless <optional_args> <optional_site_url> 
 ``` 
+
+Appendixes
+----------
+
+You may need to add security context to your usage by adding `--cap-add SYS_ADMIN` 
+
+```
+docker run --rm --name chrome -it -p 9222:9222 --cap-add SYS_ADMIN femtopixel/google-chrome-headless
+```
+
+or Jessie Frazelle SECCOMP profile for Chrome:
+
+```
+wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O ~/chrome.json
+docker run --rm --name chrome -it --security-opt seccomp=$HOME/chrome.json femtopixel/google-chrome-headless
+```
