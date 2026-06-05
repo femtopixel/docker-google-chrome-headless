@@ -1,6 +1,6 @@
-VERSION ?= 150.0.7865.2
+VERSION ?= 151.0.7872.0
 CACHE ?= --no-cache=1
-REVISION ?= 1639915
+REVISION ?= 1642111
 archs = amd64 i386
 
 .PHONY: all build publish
